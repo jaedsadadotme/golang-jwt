@@ -1,12 +1,13 @@
 package lib
 
 import (
+	"os"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 )
 
-var jwtKey = []byte("demojwt")
+var jwtKey = []byte(os.Getenv("JWT_SECRET"))
 
 type jwtCustomClaims struct {
 	ID       uint   `json: id`

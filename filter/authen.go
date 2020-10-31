@@ -2,6 +2,7 @@ package filter
 
 import (
 	models "demo-postgres/model"
+	"os"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo/v4"
@@ -16,7 +17,7 @@ func CheckAuth(next echo.HandlerFunc) echo.HandlerFunc {
 		} else {
 			_, err := jwt.ParseWithClaims(token, claims,
 				func(token *jwt.Token) (interface{}, error) {
-					return []byte("demojwt"), nil
+					return os.Getenv("JWT_SECRET"), nil
 				})
 			if err != nil {
 				return c.JSON(403, models.ErrorResponse{
